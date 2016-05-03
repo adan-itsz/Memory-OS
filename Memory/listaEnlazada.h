@@ -17,14 +17,15 @@ private:
 	nodePtr inicio; //inicio
 	nodePtr actual; //actual
 	nodePtr temporal; //temporal
-
+	nodePtr auxMemoria;//se usa para hacer referencia a memoria total
+	nodePtr memoriaTotal;
 public:
 	listaEnlazada();
 	void añadirProceso(nodePtr nodo);
 	void eliminarNodo(int borrarDato);
 	void mostrarLista();
 	void llenarPrimerNodo();
-	listaEnlazada llenarProceso();
+	void llenarProceso();
 
 };
 
