@@ -6,9 +6,9 @@ class listaEnlazada
 private:
 
 	typedef struct node {
-		int unidadMemoria;
+		int inicioProceso = 0;//inicio del proceso
 		int tamañoMemoria;
-		int tamañoProceso;
+		int tamañoProceso = 0;//tamaño en unidades de memoria
 		int id;
 		bool estado; // 0 = hueco, 1 = proceso
 		node* siguiente;
@@ -20,9 +20,12 @@ private:
 
 public:
 	listaEnlazada();
-	void añadirNodo(int añadirDato);
+	void añadirProceso(nodePtr nodo);
 	void eliminarNodo(int borrarDato);
 	void mostrarLista();
+	void llenarPrimerNodo();
+	listaEnlazada llenarProceso();
+
 };
 
 #endif //!LISTAENLAZADA_H

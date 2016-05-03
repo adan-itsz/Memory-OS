@@ -12,13 +12,22 @@ listaEnlazada::listaEnlazada() {
 	actual = NULL;
 	temporal = NULL;
 }
+bool ban = false;
 
-void listaEnlazada::añadirNodo(int añadirDato) {
-
+void listaEnlazada::añadirProceso(nodePtr nodo) {
+	nodePtr memoriaTotal = new node;
 	nodePtr n = new node; //crea nodo
 	n->siguiente = NULL;
-	n->data = añadirDato;
-
+	n->estado = nodo->estado;
+	n->id = nodo->id;
+	n->tamañoMemoria = nodo->tamañoMemoria;
+	n->tamañoProceso = nodo->tamañoProceso;
+	n->inicioProceso = nodo->inicioProceso;
+//	n->inicioProceso += actual->tamañoProceso;
+	if(!ban) {
+		memoriaTotal = n;
+		ban = true;
+	}
 	if (inicio != NULL) {
 		actual = inicio;
 		while (actual->siguiente != NULL)
@@ -26,6 +35,13 @@ void listaEnlazada::añadirNodo(int añadirDato) {
 			actual = actual->siguiente;
 		}
 		actual->siguiente = n;
+		memoriaTotal->tamañoMemoria -= n->tamañoMemoria;
+		memoriaTotal->tamañoProceso -= n->tamañoProceso;
+		if (actual->tamañoMemoria == memoriaTotal->tamañoMemoria){//si es el primer proceso y comienza en 0
+			n->inicioProceso = 0;
+		}else {
+			n->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
+		}
 	}
 	else {
 		inicio = n;
@@ -33,7 +49,7 @@ void listaEnlazada::añadirNodo(int añadirDato) {
 }
 
 void listaEnlazada::eliminarNodo(int eliminarDato) {
-
+	//delPtr = actual, actual = siguiente, temporal = anterior
 	nodePtr delPtr = NULL;
 	temporal = inicio;
 	actual = inicio;
@@ -51,7 +67,7 @@ void listaEnlazada::eliminarNodo(int eliminarDato) {
 		actual = actual->siguiente;
 
 		if(actual-> estado == false){
-			actual->unidadMemoria = delPtr->unidadMemoria;
+			actual->inicioProceso = delPtr->inicioProceso;
 			actual->tamañoMemoria += delPtr->tamañoMemoria;
 			actual->tamañoProceso += delPtr -> tamañoProceso;
 			temporal->siguiente = actual;
@@ -91,9 +107,10 @@ void listaEnlazada::eliminarNodo(int eliminarDato) {
 void listaEnlazada::mostrarLista() {
 
 	actual = inicio;
+	cout << "H/P \t |Inicio Proceso	\t|Tamaño de Proceso\t|Tamaño UAM\t|ID|" << endl;
 	while (actual != NULL)
 	{
-		cout << actual->data;
+		cout<< actual->estado << "\t |" << actual->inicioProceso <<"\t\t |" << actual->tamañoMemoria << "\t |" << actual->tamañoProceso << "\t|" << actual->id << "\t |" << endl ;
 		actual = actual->siguiente;
 	}
 }
