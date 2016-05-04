@@ -24,8 +24,17 @@ int main()
 		switch (opcion) {
 		case 1:
 			lista.llenarProceso();
+			break;
+		case 2:
+			int idEliminar;
+			cout << "Introduce el ID del proceso a eliminar" << endl;
+			cin >> idEliminar;
+			lista.eliminarNodo(idEliminar);
+
+		case 3:
 			lista.mostrarLista();
 			break;
+
 
 
 
