@@ -26,7 +26,7 @@ public:
 	void mostrarLista();
 	void llenarPrimerNodo();
 	void llenarProceso();
-
+	
 };
 
 #endif //!LISTAENLAZADA_H

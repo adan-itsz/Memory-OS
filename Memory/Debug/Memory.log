@@ -1,3 +1,2 @@
 ﻿  listaEnlazada.cpp
-c:\users\adán\documents\repositorios\memory-os\memory\listaenlazada.cpp(78): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
   Memory.vcxproj -> C:\Users\Adán\Documents\repositorios\Memory-OS\Debug\Memory.exe

@@ -73,10 +73,31 @@ void listaEnlazada::eliminarNodo(int Id) {
 	temporal = inicio;
 	actual = inicio;
 	while (actual != NULL && actual->id != Id) {
-		temporal = actual->siguiente;
+		//temporal = actual->siguiente;
 		actual = actual->siguiente;
-		actual->estado = Id;
+		//actual->estado = Id;
 	}
+
+	if (/*temporal == NULL*/actual->id==1) {
+		delPtr = inicio;//temporal
+	    //delPtr->estado = false;
+		//delPtr->tamañoMemoria = 0;
+	    //delPtr->estado 
+		inicio = inicio->siguiente;
+		inicio->tamañoMemoria += delPtr->tamañoMemoria;
+		inicio->tamañoProceso += delPtr->tamañoProceso;
+		inicio->inicioProceso = 0;
+		delete delPtr;
+
+		temporal = NULL;
+	}
+	else {
+		while (temporal != NULL && temporal->id != Id - 1)
+		{
+			temporal = temporal->siguiente;
+		}
+	}
+	
 	if (actual == NULL) {
 	cout<< Id << "No esta en la lista\n";
 		//delete delPtr;
@@ -84,18 +105,26 @@ void listaEnlazada::eliminarNodo(int Id) {
 	else {
 
 		delPtr = actual;
-		actual = actual->siguiente;
+		actual = actual->siguiente;	
 
-		if (temporal->estado == false) {
+		if(actual == NULL) {
+			//actual = inicio;
+			//actual->estado = false;
+		}
+
+	if(temporal != NULL ) {
+		if (temporal->estado == false && actual->estado == false && delPtr->id != 1 ) {
+			
 			temporal->tamañoMemoria += delPtr->tamañoMemoria;
 			temporal->tamañoMemoria += actual->tamañoMemoria;
-			temporal->tamañoProceso += delPtr->tamañoProceso;
-			temporal->tamañoProceso += actual->tamañoProceso;
-			//delete delPtr;
-			delPtr = actual;
-			actual = actual->siguiente;
+				temporal->tamañoProceso += delPtr->tamañoProceso;
+				temporal->tamañoProceso += actual->tamañoProceso;
+				//delete delPtr;
+				delPtr = actual;
+				actual = actual->siguiente;
 
-			temporal->siguiente = actual; //junta nodos;
+				temporal->siguiente = actual; //junta nodos;
+
 		}
 		
 
@@ -106,7 +135,7 @@ void listaEnlazada::eliminarNodo(int Id) {
 			delete delPtr;
 		}
 
-		else if (actual->estado == false) {
+		else if (actual->estado == false ) {
 			actual->inicioProceso = delPtr->inicioProceso;
 			actual->tamañoMemoria += delPtr->tamañoMemoria;
 			actual->tamañoProceso += delPtr->tamañoProceso;
@@ -114,13 +143,18 @@ void listaEnlazada::eliminarNodo(int Id) {
 			delete delPtr;
 		}
 
-		temporal->siguiente = actual; //conecta la lista
-		 if (delPtr == inicio)
+		else if (temporal->estado == true && actual->estado == true ) {
+
+			delPtr->estado = false;
+		}
+	}
+		//temporal->siguiente = actual; //conecta la lista
+		/* if (delPtr == inicio)
 		{
 			inicio = inicio->siguiente;
 			temporal = NULL;
-		}
-		delPtr->estado = false;
+		}*/
+		
 		cout << "El proceso " << Id << "ha sido eliminado\n";
 	}
 	
