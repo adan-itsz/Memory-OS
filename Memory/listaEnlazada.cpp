@@ -72,17 +72,15 @@ void listaEnlazada::eliminarNodo(int Id) {
 	nodePtr delPtr = NULL;
 	temporal = inicio;
 	actual = inicio;
+	bool bandera = false;
 	while (actual != NULL && actual->id != Id) {
-		//temporal = actual->siguiente;
 		actual = actual->siguiente;
-		//actual->estado = Id;
+		
 	}
 
-	if (/*temporal == NULL*/actual->id==1) {
+	if (actual->id==1) {
 		delPtr = inicio;//temporal
-	    //delPtr->estado = false;
-		//delPtr->tamañoMemoria = 0;
-	    //delPtr->estado 
+	    
 		inicio = inicio->siguiente;
 		inicio->tamañoMemoria += delPtr->tamañoMemoria;
 		inicio->tamañoProceso += delPtr->tamañoProceso;
@@ -119,7 +117,6 @@ void listaEnlazada::eliminarNodo(int Id) {
 			temporal->tamañoMemoria += actual->tamañoMemoria;
 				temporal->tamañoProceso += delPtr->tamañoProceso;
 				temporal->tamañoProceso += actual->tamañoProceso;
-				//delete delPtr;
 				delPtr = actual;
 				actual = actual->siguiente;
 
@@ -168,7 +165,20 @@ void listaEnlazada::mostrarLista() {
 	{
 		cout<< actual->estado << "\t |" << actual->inicioProceso <<"\t\t\t\t |" << actual->tamañoMemoria << "\t\t\t |" << actual->tamañoProceso << "\t\t|" << actual->id << "|" << endl ;
 		actual = actual->siguiente;
-	}
+	} 
 
 	cout << 0 << "\t |" << auxMemoria->inicioProceso << "\t\t\t\t |" << auxMemoria->tamañoMemoria << "\t\t\t |" << auxMemoria->tamañoProceso << "\t\t|" << 0 << "|" << endl;
+}
+
+void listaEnlazada::posicionarUltimo() {
+	actual = inicio;
+	temporal = inicio;
+	while (actual != NULL) {
+	
+		actual = actual->siguiente;
+	}
+	while (temporal->siguiente != actual) {
+		temporal = temporal->siguiente;
+	}
+
 }

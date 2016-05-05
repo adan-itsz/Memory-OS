@@ -1,2 +1,7 @@
 ﻿  listaEnlazada.cpp
+  Memory.cpp
+c:\users\adán\documents\repositorios\memory-os\memory\memory.cpp(69): warning C4101: 'desperdicio': unreferenced local variable
+c:\users\adán\documents\repositorios\memory-os\memory\memory.cpp(70): warning C4101: 'tamañoProceso': unreferenced local variable
+  Generating Code...
+  LINK : C:\Users\Adán\Documents\repositorios\Memory-OS\Debug\Memory.exe not found or not built by the last incremental link; performing full link
   Memory.vcxproj -> C:\Users\Adán\Documents\repositorios\Memory-OS\Debug\Memory.exe
