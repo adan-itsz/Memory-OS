@@ -30,6 +30,7 @@ int main()
 			cout << "Introduce el ID del proceso a eliminar" << endl;
 			cin >> idEliminar;
 			lista.eliminarNodo(idEliminar);
+			
 
 		case 3:
 			lista.mostrarLista();

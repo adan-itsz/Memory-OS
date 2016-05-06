@@ -16,6 +16,7 @@ listaEnlazada::listaEnlazada() {
 	
 }
 bool ban = false;
+bool bandera = false;
  
 void listaEnlazada::añadirProceso(nodePtr nodo) {
 	
@@ -72,88 +73,112 @@ void listaEnlazada::eliminarNodo(int Id) {
 	nodePtr delPtr = NULL;
 	temporal = inicio;
 	actual = inicio;
-	bool bandera = false;
-	while (actual != NULL && actual->id != Id) {
-		actual = actual->siguiente;
-		
-	}
-
-	if (actual->id==1) {
-		delPtr = inicio;//temporal
-	    
-		inicio = inicio->siguiente;
-		inicio->tamañoMemoria += delPtr->tamañoMemoria;
-		inicio->tamañoProceso += delPtr->tamañoProceso;
-		inicio->inicioProceso = 0;
-		delete delPtr;
-
-		temporal = NULL;
-	}
-	else {
-		while (temporal != NULL && temporal->id != Id - 1)
-		{
-			temporal = temporal->siguiente;
-		}
-	}
-	
-	if (actual == NULL) {
-	cout<< Id << "No esta en la lista\n";
-		//delete delPtr;
-	}
-	else {
-
+	posicionarUltimo();
+	if(actual->id==Id)
+	{
+		bandera = true;
 		delPtr = actual;
-		actual = actual->siguiente;	
-
-		if(actual == NULL) {
-			//actual = inicio;
-			//actual->estado = false;
-		}
-
-	if(temporal != NULL ) {
-		if (temporal->estado == false && actual->estado == false && delPtr->id != 1 ) {
-			
-			temporal->tamañoMemoria += delPtr->tamañoMemoria;
-			temporal->tamañoMemoria += actual->tamañoMemoria;
-				temporal->tamañoProceso += delPtr->tamañoProceso;
-				temporal->tamañoProceso += actual->tamañoProceso;
-				delPtr = actual;
-				actual = actual->siguiente;
-
-				temporal->siguiente = actual; //junta nodos;
-
-		}
-		
-
-		 else if(temporal-> estado == false){
-			temporal->tamañoMemoria += delPtr->tamañoMemoria;
-			temporal->tamañoProceso += delPtr ->tamañoProceso;
-			temporal-> siguiente = actual;
-			delete delPtr;
-		}
-
-		else if (actual->estado == false ) {
-			actual->inicioProceso = delPtr->inicioProceso;
-			actual->tamañoMemoria += delPtr->tamañoMemoria;
-			actual->tamañoProceso += delPtr->tamañoProceso;
-			temporal->siguiente = actual;
-			delete delPtr;
-		}
-
-		else if (temporal->estado == true && actual->estado == true ) {
-
-			delPtr->estado = false;
-		}
+		auxMemoria->tamañoMemoria += delPtr->tamañoMemoria;
+		auxMemoria->tamañoProceso += delPtr->tamañoProceso;
+		auxMemoria->inicioProceso = delPtr->inicioProceso;
+		//delete delPtr;
+		temporal = inicio;
+		actual = inicio;
+		actual->siguiente = inicio->siguiente;
+	
 	}
-		//temporal->siguiente = actual; //conecta la lista
-		/* if (delPtr == inicio)
-		{
+	else {
+		temporal = inicio;
+		actual = inicio;
+	
+	}
+
+	if (bandera != true) {
+
+		while (actual->siguiente != NULL && actual->id != Id) {//aqui
+			actual = actual->siguiente;
+
+		}
+
+
+		if (actual->id == 1) {
+			delPtr = inicio;//temporal
+
 			inicio = inicio->siguiente;
+			inicio->tamañoMemoria += delPtr->tamañoMemoria;
+			inicio->tamañoProceso += delPtr->tamañoProceso;
+			inicio->inicioProceso = 0;
+			delete delPtr;
+
 			temporal = NULL;
-		}*/
-		
-		cout << "El proceso " << Id << "ha sido eliminado\n";
+		}
+		else {
+			while (temporal != NULL && temporal->id != Id - 1)
+			{
+				temporal = temporal->siguiente;
+			}
+		}
 	}
+
+		if (actual == NULL) {
+			cout << Id << "No esta en la lista\n";
+			//delete delPtr;
+		}
+		else {
+
+			delPtr = actual;
+			actual = actual->siguiente;
+
+			if (actual == NULL) {
+				//actual = inicio;
+				//actual->estado = false;
+			}
+
+			if (temporal != NULL) {
+				if (temporal->estado == false && actual->estado == false && delPtr->id != 1) {
+
+					temporal->tamañoMemoria += delPtr->tamañoMemoria;
+					temporal->tamañoMemoria += actual->tamañoMemoria;
+					temporal->tamañoProceso += delPtr->tamañoProceso;
+					temporal->tamañoProceso += actual->tamañoProceso;
+					delPtr = actual;
+					actual = actual->siguiente;
+
+					temporal->siguiente = actual; //junta nodos;
+
+				}
+
+
+				else if (temporal->estado == false) {
+					temporal->tamañoMemoria += delPtr->tamañoMemoria;
+					temporal->tamañoProceso += delPtr->tamañoProceso;
+					temporal->siguiente = actual;
+					delete delPtr;
+				}
+
+				else if (actual->estado == false) {
+					actual->inicioProceso = delPtr->inicioProceso;
+					actual->tamañoMemoria += delPtr->tamañoMemoria;
+					actual->tamañoProceso += delPtr->tamañoProceso;
+					temporal->siguiente = actual;
+					delete delPtr;
+				}
+
+				else if (temporal->estado == true && actual->estado == true) {
+
+					delPtr->estado = false;
+				}
+			}
+			//temporal->siguiente = actual; //conecta la lista
+			/* if (delPtr == inicio)
+			{
+				inicio = inicio->siguiente;
+				temporal = NULL;
+			}*/
+
+			cout << "El proceso " << Id << "ha sido eliminado\n";
+		}
+	
 	
 }
 
@@ -173,7 +198,7 @@ void listaEnlazada::mostrarLista() {
 void listaEnlazada::posicionarUltimo() {
 	actual = inicio;
 	temporal = inicio;
-	while (actual != NULL) {
+	while (actual->siguiente != NULL) {
 	
 		actual = actual->siguiente;
 	}
