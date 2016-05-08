@@ -39,6 +39,11 @@ int main()
 
 
 		}
+
+		if (lista.vacia() == true) {
+			id = 1;
+		}
+
 	} while (opcion != -1);
 
 	system("pause");

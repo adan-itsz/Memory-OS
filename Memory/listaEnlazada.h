@@ -26,6 +26,7 @@ public:
 	void mostrarLista();
 	void llenarPrimerNodo();
 	void llenarProceso();
+	bool vacia();
 	
 };
 
