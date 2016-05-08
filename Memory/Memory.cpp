@@ -14,6 +14,7 @@ int uam; //unidad de administracion de memoria
 int main()
 {
 	int opcion = 0;
+	int opcion2 = 0;
 	lista.llenarPrimerNodo();
 	do {
 		cout << "Selecciona la opcion correcta" << endl;
@@ -23,7 +24,18 @@ int main()
 		cin >> opcion;
 		switch (opcion) {
 		case 1:
-			lista.llenarProceso();
+				cout << "Selecciona el algoritmo " << endl;
+				cout << "1-  Primer ajuste" << endl;
+				cout << "2-  Siguiente ajuste" << endl;
+				cout << "3-  Peor ajuste" << endl;
+				cout << "4-  mejor ajuste" << endl;
+				cin >> opcion2;
+				switch (opcion2) {
+
+				case 1: lista.llenarProceso();
+					break;
+				}
+			
 			break;
 		case 2:
 			int idEliminar;
@@ -81,9 +93,8 @@ void listaEnlazada::llenarProceso() {
 	procesos->tamañoMemoria = tamañoMemoria;
 	procesos->tamañoProceso = tamañoMemoria / uam;
 	procesos->inicioProceso;
-	lista.añadirProceso(procesos);
+	lista.primerAjuste(procesos);
 	
-	//return lista;
 
 }
 

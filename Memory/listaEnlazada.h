@@ -27,6 +27,7 @@ public:
 	void llenarPrimerNodo();
 	void llenarProceso();
 	bool vacia();
+	void primerAjuste(nodePtr node);
 	
 };
 

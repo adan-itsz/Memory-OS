@@ -131,12 +131,12 @@ void listaEnlazada::eliminarNodo(int Id) {
 
 				temporal = inicio;
 
-				while (temporal != NULL && temporal->id != delPtr->id - 1)
+				while (temporal != NULL && temporal->siguiente != delPtr)
 				{
 					temporal = temporal->siguiente;
 				}
 				actual = inicio;
-				while (actual != NULL && actual->id != temporal->id - 1)
+				while (actual != NULL && actual->siguiente != temporal)
 				{
 					actual = actual->siguiente;
 				}
@@ -154,7 +154,15 @@ void listaEnlazada::eliminarNodo(int Id) {
 					delete delPtr;
 					delPtr = NULL;
 
-					actual->siguiente = NULL;
+					if (actual == NULL)
+					{
+						inicio = NULL;
+					}
+					else
+					{
+						actual->siguiente = NULL;
+					}
+					
 					bandera = 1;			
 				}
 				else if(temporal-> estado == true)
@@ -191,22 +199,25 @@ void listaEnlazada::eliminarNodo(int Id) {
 		delPtr = actual;
 		actual = actual->siguiente;	
 
+		while (temporal != NULL && temporal->siguiente != delPtr)
+		{
+			temporal = temporal->siguiente;
+		}
 
 		if(temporal != NULL ) {
-			if (temporal->estado == false && actual->estado == false && delPtr->id != 1 ) {
+			if (temporal->estado == false && actual->estado == false) {
 			
 				temporal->tamañoMemoria += delPtr->tamañoMemoria;
 				temporal->tamañoMemoria += actual->tamañoMemoria;
 				temporal->tamañoProceso += delPtr->tamañoProceso;
 				temporal->tamañoProceso += actual->tamañoProceso;
-				//delete delPtr;
-				delPtr = actual;
+				delete delPtr;
+				delPtr = NULL;
 				actual = actual->siguiente;
-
 				temporal->siguiente = actual; //junta nodos;
 
 		}	
-		 else if(temporal-> estado == false){
+		 else if(temporal-> estado == false && actual->estado == true){
 			temporal->tamañoMemoria += delPtr->tamañoMemoria;
 			temporal->tamañoProceso += delPtr ->tamañoProceso;
 			temporal-> siguiente = actual;
@@ -215,7 +226,7 @@ void listaEnlazada::eliminarNodo(int Id) {
 			temporal->siguiente = actual;
 		}
 
-		else if (actual->estado == false ) {
+		else if (actual->estado == false && temporal-> estado == true ) {
 			actual->inicioProceso = delPtr->inicioProceso;
 			actual->tamañoMemoria += delPtr->tamañoMemoria;
 			actual->tamañoProceso += delPtr->tamañoProceso;			
@@ -259,5 +270,59 @@ bool listaEnlazada::vacia() {
 	{
 		return false;
 	}
+
+}
+void listaEnlazada::primerAjuste(nodePtr node) {
+	nodePtr nodo = node;
+	nodePtr aux;
+ 	actual = inicio;
+	temporal = inicio;
+	bool ban = false;
+	if (vacia()) {
+		añadirProceso(nodo);
+	}
+
+	else {
+		while (actual != NULL && ban!=true) {
+			
+			if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+				actual->estado = true;
+				ban = true;
+
+				aux = actual->siguiente;
+				temporal = nodo;
+
+				temporal->tamañoMemoria = actual->tamañoMemoria - nodo->tamañoMemoria;
+				actual->tamañoMemoria = nodo->tamañoMemoria;
+				temporal->tamañoProceso = actual->tamañoProceso- nodo->tamañoProceso;
+				actual->tamañoProceso= nodo->tamañoProceso;
+				temporal->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
+
+				actual->siguiente = temporal;
+				temporal->siguiente = aux;
+
+				actual = inicio;
+				while (actual->siguiente!=NULL)
+				{
+					actual = actual->siguiente;
+				}
+				temporal->id = actual->id + 1;
+				temporal->estado = false;
+
+			}
+			else {
+
+				
+			}
+			
+			actual = actual->siguiente;
+			
+		}
+		
+		if (actual == NULL && !ban) {
+			añadirProceso(nodo);
+		}
+	}
+
 
 }
