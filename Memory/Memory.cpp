@@ -10,6 +10,7 @@ using namespace std;
 listaEnlazada lista;
 int id=1;
 int uam; //unidad de administracion de memoria
+int ban = 0;
 
 int main()
 {
@@ -32,7 +33,13 @@ int main()
 				cin >> opcion2;
 				switch (opcion2) {
 
-				case 1: lista.llenarProceso();
+				case 1:
+					ban = 1;
+					lista.llenarProceso();
+					break;
+				case 2:
+					ban = 2;
+					lista.llenarProceso();
 					break;
 				}
 			
@@ -93,8 +100,13 @@ void listaEnlazada::llenarProceso() {
 	procesos->tamañoMemoria = tamañoMemoria;
 	procesos->tamañoProceso = tamañoMemoria / uam;
 	procesos->inicioProceso;
-	lista.primerAjuste(procesos);
-	
+	if (ban == 1) {
+		lista.primerAjuste(procesos);
+	}
+	else if(ban == 2)
+	{
+		lista.siguienteAjuste(procesos);
+	}
 
 }
 

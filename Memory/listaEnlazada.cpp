@@ -16,6 +16,7 @@ listaEnlazada::listaEnlazada() {
 	
 }
 bool ban = false;
+int var = 0;
  
 void listaEnlazada::añadirProceso(nodePtr nodo) {
 	
@@ -275,6 +276,8 @@ bool listaEnlazada::vacia() {
 void listaEnlazada::primerAjuste(nodePtr node) {
 	nodePtr nodo = node;
 	nodePtr aux;
+	int aux2 = 0;
+	
  	actual = inicio;
 	temporal = inicio;
 	bool ban = false;
@@ -290,23 +293,30 @@ void listaEnlazada::primerAjuste(nodePtr node) {
 				ban = true;
 
 				aux = actual->siguiente;
+				aux2 = nodo->tamañoMemoria;
 				temporal = nodo;
 
-				temporal->tamañoMemoria = actual->tamañoMemoria - nodo->tamañoMemoria;
-				actual->tamañoMemoria = nodo->tamañoMemoria;
-				temporal->tamañoProceso = actual->tamañoProceso- nodo->tamañoProceso;
-				actual->tamañoProceso= nodo->tamañoProceso;
+				temporal->tamañoMemoria = actual->tamañoMemoria - temporal->tamañoMemoria;
+				actual->tamañoMemoria = aux2;
+			
+				actual->tamañoProceso = actual->tamañoProceso- nodo->tamañoProceso;
+				temporal->tamañoProceso= nodo->tamañoProceso;
 				temporal->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
 
 				actual->siguiente = temporal;
 				temporal->siguiente = aux;
 
-				actual = inicio;
-				while (actual->siguiente!=NULL)
+				aux = inicio;
+				var = aux->id;
+				while (aux->siguiente!=NULL)
 				{
-					actual = actual->siguiente;
+					if(var <= aux->siguiente->id)
+					{
+						var = aux->siguiente->id;
+					}
+					aux = aux->siguiente;
 				}
-				temporal->id = actual->id + 1;
+				temporal->id = var;
 				temporal->estado = false;
 
 			}
@@ -324,5 +334,127 @@ void listaEnlazada::primerAjuste(nodePtr node) {
 		}
 	}
 
+
+}
+int identificadorInicio = 0;
+void listaEnlazada::siguienteAjuste(nodePtr node)
+{
+	nodePtr nodo = node;
+	nodePtr aux;
+	int aux2 = 0;
+	
+	actual = inicio;
+	temporal = inicio;
+	
+	bool ban = false;
+	if (vacia()) {
+		añadirProceso(nodo);
+	}
+
+	else {
+		if(identificadorInicio == 0){
+			while (actual != NULL && ban != true) {
+
+				if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+					actual->estado = true;
+					ban = true;
+
+					aux = actual->siguiente;
+					temporal = nodo;
+					aux2 = nodo->tamañoMemoria;
+
+					temporal->tamañoMemoria = actual->tamañoMemoria - temporal->tamañoMemoria;
+					actual->tamañoMemoria = aux2;
+					
+					actual->tamañoProceso = actual->tamañoProceso - nodo->tamañoProceso;
+
+					temporal->tamañoProceso = nodo->tamañoProceso;
+					temporal->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
+
+					actual->siguiente = temporal;
+					temporal->siguiente = aux;
+
+					identificadorInicio = actual->id;
+
+					aux = inicio;
+					var = aux->id;
+					while (aux->siguiente != NULL)
+					{		
+						if (var <= aux->siguiente->id)
+						{
+							var = aux->siguiente->id;
+						}
+						aux = aux->siguiente;
+					}
+					temporal->id = var;
+					temporal->estado = false;
+
+				 }
+				actual = actual->siguiente;
+
+			}
+		}
+		else if(identificadorInicio != 0)
+		{
+			while (actual!=NULL && actual->id != identificadorInicio)
+			{
+				actual = actual->siguiente;
+			}
+
+			while (actual != NULL && ban != true) {
+
+				if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+					actual->estado = true;
+					ban = true;
+
+					aux = actual->siguiente;
+					temporal = nodo;
+					aux2 = nodo->tamañoMemoria;
+
+					temporal->tamañoMemoria = actual->tamañoMemoria - temporal->tamañoMemoria;
+					actual->tamañoMemoria = aux2;
+
+					actual->tamañoProceso = actual->tamañoProceso - nodo->tamañoProceso;
+					temporal->tamañoProceso = nodo->tamañoProceso;
+
+					temporal->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
+
+					actual->siguiente = temporal;
+					temporal->siguiente = aux;
+
+					identificadorInicio = actual->id;
+
+					aux = inicio;
+					var = aux->id;
+					while (aux->siguiente != NULL)
+					{					
+						if (var <= aux->siguiente->id)
+						{
+							var = aux->siguiente->id;
+						}
+						aux = aux->siguiente;
+					}
+					temporal->id = var;
+					temporal->estado = false;
+
+				}
+				actual = actual->siguiente;
+
+			}
+			temporal = inicio;
+			while (temporal->siguiente != NULL)
+			{
+				temporal = temporal->siguiente;
+			}
+			if (temporal->id == identificadorInicio)
+			{
+				identificadorInicio = 0;
+			}
+		}
+
+		if (actual == NULL && !ban) {
+			añadirProceso(nodo);
+		}
+	}
 
 }

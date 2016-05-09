@@ -28,6 +28,7 @@ public:
 	void llenarProceso();
 	bool vacia();
 	void primerAjuste(nodePtr node);
+	void siguienteAjuste(nodePtr node);
 	
 };
 
