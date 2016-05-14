@@ -29,6 +29,8 @@ public:
 	bool vacia();
 	void primerAjuste(nodePtr node);
 	void siguienteAjuste(nodePtr node);
+	void peorAjuste(nodePtr node);
+	void mejorAjuste(nodePtr node);
 	
 };
 

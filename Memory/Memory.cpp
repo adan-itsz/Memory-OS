@@ -41,6 +41,12 @@ int main()
 					ban = 2;
 					lista.llenarProceso();
 					break;
+				case 3:
+					ban = 3;
+					lista.llenarProceso();
+				case 4:
+					ban = 4;
+					lista.llenarProceso();
 				}
 			
 			break;
@@ -106,6 +112,13 @@ void listaEnlazada::llenarProceso() {
 	else if(ban == 2)
 	{
 		lista.siguienteAjuste(procesos);
+	}
+	else if (ban == 3) {
+		lista.peorAjuste(procesos);
+	}
+	else if(ban == 4)
+	{
+		lista.mejorAjuste(procesos);
 	}
 
 }
