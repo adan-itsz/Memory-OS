@@ -44,6 +44,7 @@ int main()
 				case 3:
 					ban = 3;
 					lista.llenarProceso();
+					break;
 				case 4:
 					ban = 4;
 					lista.llenarProceso();
