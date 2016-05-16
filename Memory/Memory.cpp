@@ -102,25 +102,29 @@ void listaEnlazada::llenarProceso() {
 	int tamañoMemoria;
 	cout << "inserta el tamaño de proceso en memoria" << endl;
 	cin >> tamañoMemoria;
-	procesos->estado = true;
-	procesos->id = id++;
-	procesos->tamañoMemoria = tamañoMemoria;
-	procesos->tamañoProceso = tamañoMemoria / uam;
-	procesos->inicioProceso;
-	if (ban == 1) {
-		lista.primerAjuste(procesos);
-	}
-	else if(ban == 2)
-	{
-		lista.siguienteAjuste(procesos);
-	}
-	else if (ban == 3) {
-		lista.peorAjuste(procesos);
-	}
-	else if(ban == 4)
-	{
-		lista.mejorAjuste(procesos);
-	}
+		procesos->estado = true;
+		procesos->id = id++;
+		procesos->tamañoMemoria = tamañoMemoria;
+		procesos->tamañoProceso = tamañoMemoria / uam;
+		procesos->inicioProceso;
+		if (ban == 1) {
+			lista.primerAjuste(procesos);
+		}
+		else if (ban == 2)
+		{
+			lista.siguienteAjuste(procesos);
+		}
+		else if (ban == 3) {
+			lista.peorAjuste(procesos);
+		}
+		else if (ban == 4)
+		{
+			lista.mejorAjuste(procesos);
+		}
+	
+	
+	
+	
 
 }
 

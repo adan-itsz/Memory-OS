@@ -285,13 +285,20 @@ void listaEnlazada::primerAjuste(nodePtr node) {
 	temporal = inicio;
 	bool ban = false;
 	if (vacia()) {
-		añadirProceso(nodo);
+
+		if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+			añadirProceso(nodo);
+		}
+
+		else {
+			cout << "No hay memoria suficiente" << endl;
+		}
 	}
 
 	else {
 		while (actual != NULL && ban!=true) {
 			
-			if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+			if (actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
 				actual->estado = true;
 				ban = true;
 
@@ -333,7 +340,14 @@ void listaEnlazada::primerAjuste(nodePtr node) {
 		}
 		
 		if (actual == NULL && !ban) {
-			añadirProceso(nodo);
+			if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+				añadirProceso(nodo);
+			}
+			
+			else {
+				cout << "No hay memoria suficiente" << endl;
+			}
+			
 		}
 	}
 
@@ -351,14 +365,20 @@ void listaEnlazada::siguienteAjuste(nodePtr node)
 	
 	bool ban = false;
 	if (vacia()) {
-		añadirProceso(nodo);
+		if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+			añadirProceso(nodo);
+		}
+
+		else {
+			cout << "No hay memoria suficiente" << endl;
+		}
 	}
 
 	else {
 		if(identificadorInicio == 0){
 			while (actual != NULL && ban != true) {
 
-				if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+				if (actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
 					actual->estado = true;
 					ban = true;
 
@@ -406,7 +426,7 @@ void listaEnlazada::siguienteAjuste(nodePtr node)
 
 			while (actual != NULL && ban != true) {
 
-				if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
+				if (actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
 					actual->estado = true;
 					ban = true;
 
@@ -456,7 +476,13 @@ void listaEnlazada::siguienteAjuste(nodePtr node)
 		}
 
 		if (actual == NULL && !ban) {
-			añadirProceso(nodo);
+			if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+				añadirProceso(nodo);
+			}
+
+			else {
+				cout << "No hay memoria suficiente" << endl;
+			}
 		}
 	}
 
@@ -471,7 +497,13 @@ void listaEnlazada::mejorAjuste(nodePtr node) {
 	temporal = inicio;
 	bool ban = false;
 	if (vacia()) {
-		añadirProceso(nodo);
+		if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+			añadirProceso(nodo);
+		}
+
+		else {
+			cout << "No hay memoria suficiente" << endl;
+		}
 	}
 	else {
 		
@@ -544,7 +576,13 @@ void listaEnlazada::mejorAjuste(nodePtr node) {
 
 		}
 		if (actual == NULL && !ban) {
-			añadirProceso(nodo);
+			if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+				añadirProceso(nodo);
+			}
+
+			else {
+				cout << "No hay memoria suficiente" << endl;
+			}
 		}
 	}
 }
@@ -557,7 +595,13 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 	temporal = inicio;
 	bool ban = false;
 	if (vacia()) {
-		añadirProceso(nodo);
+		if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+			añadirProceso(nodo);
+		}
+
+		else {
+			cout << "No hay memoria suficiente" << endl;
+		}
 	}
 	else {
 
@@ -566,7 +610,7 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 		{
 
 
-			if (var <= actual->tamañoMemoria && actual->estado == false )
+			if (var <= actual->tamañoMemoria && actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria)
 			{
 				var = actual->tamañoMemoria;
 			}
@@ -626,7 +670,13 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 
 		}
 		if (actual == NULL && !ban) {
-			añadirProceso(nodo);
+			if (nodo->tamañoMemoria <= auxMemoria->tamañoMemoria) {
+				añadirProceso(nodo);
+			}
+
+			else {
+				cout << "No hay memoria suficiente" << endl;
+			}
 		}
 	}
 
