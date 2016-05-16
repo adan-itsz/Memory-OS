@@ -458,8 +458,8 @@ void listaEnlazada::siguienteAjuste(nodePtr node)
 	}
 
 }
-void listaEnlazada::mejorAjuste(nodePtr node2) {
-	nodePtr nodo = node2;
+void listaEnlazada::mejorAjuste(nodePtr node) {
+	nodePtr nodo = node;
 	nodePtr aux;
 	nodePtr auxParaEliminar;
 	int aux2 = 0;
@@ -508,8 +508,8 @@ void listaEnlazada::mejorAjuste(nodePtr node2) {
 				temporal->inicioProceso = actual->inicioProceso + actual->tamañoMemoria;
 				
 				if (temporal->tamañoMemoria == 0) {
-					//delete temporal;
-					temporal = NULL;
+					delete temporal;
+					//temporal = NULL;
 
 				}
 					
@@ -543,8 +543,8 @@ void listaEnlazada::mejorAjuste(nodePtr node2) {
 		}
 	}
 }
-void listaEnlazada::peorAjuste(nodePtr node3) {
-	nodePtr nodo = node3;
+void listaEnlazada::peorAjuste(nodePtr node) {
+	nodePtr nodo = node;
 	nodePtr aux;
 	int aux2 = 0;
 	var = 0;
