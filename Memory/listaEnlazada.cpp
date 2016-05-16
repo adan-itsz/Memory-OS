@@ -96,12 +96,15 @@ void listaEnlazada::eliminarNodo(int Id) {
 			delPtr = inicio->siguiente;
 
 			if (delPtr->estado == false) {
+
+				delPtr->tamañoMemoria += inicio->tamañoMemoria;
+				delPtr->tamañoProceso += inicio->tamañoProceso;
+				delPtr->inicioProceso = 0;
+				delPtr = inicio;
 				inicio = inicio->siguiente;
-				inicio->tamañoMemoria += delPtr->tamañoMemoria;
-				inicio->tamañoProceso += delPtr->tamañoProceso;
-				inicio->inicioProceso = 0;
 				delete delPtr;
 				delPtr = NULL;
+				bandera = 1;
 				
 			}
 			
