@@ -472,7 +472,7 @@ void listaEnlazada::mejorAjuste(nodePtr node) {
 	}
 	else {
 		
-		var = inicio->tamañoMemoria;
+	//	var = inicio->tamañoMemoria;
 		while (actual != NULL)
 		{
 			
@@ -481,10 +481,12 @@ void listaEnlazada::mejorAjuste(nodePtr node) {
 			{
 				var = actual->tamañoMemoria;
 			}
+			
 			else if (var < actual->tamañoMemoria&& actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
 
-				var = actual->tamañoMemoria;
-			}
+					var = actual->tamañoMemoria;
+				}
+			
 			actual = actual->siguiente;
 		}
 
@@ -556,7 +558,7 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 	}
 	else {
 
-		var = inicio->tamañoMemoria;
+	//	var = inicio->tamañoMemoria;
 		while (actual != NULL)
 		{
 
@@ -565,7 +567,7 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 			{
 				var = actual->tamañoMemoria;
 			}
-			else if (var > actual->tamañoMemoria&& actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
+			else if (var < actual->tamañoMemoria&& actual->estado == false && actual->tamañoMemoria >= nodo->tamañoMemoria) {
 
 				var = actual->tamañoMemoria;
 			}
