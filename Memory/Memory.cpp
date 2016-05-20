@@ -11,6 +11,7 @@ listaEnlazada lista;
 int id=1;
 int uam; //unidad de administracion de memoria
 int ban = 0;
+int desperdicio;
 
 int main()
 {
@@ -104,8 +105,14 @@ void listaEnlazada::llenarProceso() {
 	cin >> tamañoMemoria;
 		procesos->estado = true;
 		procesos->id = id++;
+		
 		procesos->tamañoMemoria = tamañoMemoria;
+
 		procesos->tamañoProceso = tamañoMemoria / uam;
+		if (tamañoMemoria%uam != 0) {
+			procesos->tamañoProceso++;
+		}
+		procesos->desperdicio = (uam*procesos->tamañoProceso) - procesos->tamañoMemoria;
 		procesos->inicioProceso;
 		if (ban == 1) {
 			lista.primerAjuste(procesos);

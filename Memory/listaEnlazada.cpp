@@ -34,6 +34,7 @@ void listaEnlazada::añadirProceso(nodePtr nodo) {
 		n->tamañoMemoria = nodo->tamañoMemoria;
 		n->tamañoProceso = nodo->tamañoProceso;
 		n->inicioProceso = nodo->inicioProceso;
+		n->desperdicio = nodo->desperdicio;
 		
 	
 	if (inicio != NULL) {
@@ -255,10 +256,10 @@ void listaEnlazada::mostrarLista() {
 	actual = inicio;
 	temporal = inicio;
 
-	cout << "H/P \t |Inicio Proceso	\t|Tamaño de Proceso\t|Tamaño UAM\t|ID|" << endl;
+	cout << "H/P \t |Inicio Proceso	\t|Tamaño de Proceso\t|Tamaño UAM\t|Desperdicio\t|ID|" << endl;
 		while (actual != NULL )
 		{
-			cout << actual->estado << "\t |" << actual->inicioProceso << "\t\t\t\t |" << actual->tamañoMemoria << "\t\t\t |" << actual->tamañoProceso << "\t\t|" << actual->id << "|" << endl;
+			cout << actual->estado << "\t |" << actual->inicioProceso << "\t\t\t\t |" << actual->tamañoMemoria << "\t\t\t |" << actual->tamañoProceso << "\t\t|"<<actual->desperdicio <<"\t\t|" << actual->id << "|" << endl;
 			actual = actual->siguiente;		
 		}
 

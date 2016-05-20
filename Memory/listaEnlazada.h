@@ -10,6 +10,7 @@ private:
 		int tamañoMemoria;
 		int tamañoProceso = 0;//tamaño en unidades de memoria
 		int id;
+		int desperdicio;
 		bool estado; // 0 = hueco, 1 = proceso
 		node* siguiente;
 	}*nodePtr;
