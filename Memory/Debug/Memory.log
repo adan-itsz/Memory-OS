@@ -1,3 +1,3 @@
 ﻿  listaEnlazada.cpp
-c:\users\adán\documents\repositorios\memory-os\memory\listaenlazada.cpp(494): warning C4101: 'auxParaEliminar': unreferenced local variable
+c:\users\adán\documents\repositorios\memory-os\memory\listaenlazada.cpp(496): warning C4101: 'auxParaEliminar': unreferenced local variable
   Memory.vcxproj -> C:\Users\Adán\Documents\repositorios\Memory-OS\Debug\Memory.exe
