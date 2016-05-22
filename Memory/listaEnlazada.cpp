@@ -112,7 +112,7 @@ void listaEnlazada::eliminarNodo(int Id) {
 			
 			else if (inicio->siguiente->estado == true) {
 				inicio->estado = false;
-				inicio->tamañoMemoria = 0;
+				//inicio->tamañoMemoria = 0;
 				bandera = 1;
 			}
 
@@ -282,7 +282,9 @@ bool listaEnlazada::vacia() {
 void listaEnlazada::primerAjuste(nodePtr node) {
 	nodePtr nodo = node;
 	nodePtr aux;
-	int aux2 = 0;
+	nodePtr aux2;
+	int aux3;
+	int aux4;
 	
  	actual = inicio;
 	temporal = inicio;
@@ -301,41 +303,62 @@ void listaEnlazada::primerAjuste(nodePtr node) {
 	else {
 		while (actual != NULL && ban!=true) {
 			
-			if (actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
-				actual->estado = true;
+			if (actual->estado == false && actual->tamañoProceso > nodo->tamañoProceso) {
 				ban = true;
-
 				aux = actual->siguiente;
-				aux2 = nodo->tamañoProceso;
 				temporal = nodo;
+				aux2 = actual;
+				aux3 = nodo->tamañoMemoria;
+				aux4 = nodo->tamañoProceso;
+				
+				temporal->tamañoProceso = aux2->tamañoProceso - temporal->tamañoProceso;
+				temporal->tamañoMemoria = aux2->tamañoMemoria - temporal->tamañoMemoria;
 
-				temporal->tamañoProceso = actual->tamañoProceso - temporal->tamañoProceso;
-				actual->tamañoProceso = aux2;
-			
-				actual->tamañoMemoria = actual->tamañoMemoria- nodo->tamañoMemoria;
-				temporal->tamañoMemoria= nodo->tamañoMemoria;
-				temporal->inicioProceso = actual->inicioProceso + actual->tamañoProceso;
+				actual->tamañoMemoria = aux3;
+				actual->tamañoProceso = aux4;
+
+	
+
+				actual->estado = true;
+				temporal->estado = false;
+
+				temporal->inicioProceso = aux2->inicioProceso + aux2->tamañoProceso + 1;
+
 
 				actual->siguiente = temporal;
 				temporal->siguiente = aux;
-
-				aux = inicio;
-				var = aux->id;
-				while (aux->siguiente!=NULL)
+				
+				while (aux != NULL)
 				{
-					if(var <= aux->siguiente->id)
-					{
-						var = aux->siguiente->id;
-					}
+					aux->inicioProceso += 1;
 					aux = aux->siguiente;
+				}
+				auxMemoria->inicioProceso += 1;
+
+
+				aux2 = inicio;
+				var = aux2->id;
+				while (aux2->siguiente!=NULL)
+				{
+					if(var <= aux2->siguiente->id)
+					{
+						var = aux2->siguiente->id;
+					}
+					aux2 = aux2->siguiente;
 				}
 				temporal->id = var;
 				temporal->estado = false;
-
 			}
-			else {
-
-				
+			else if (actual->estado == false && actual->tamañoProceso == nodo->tamañoProceso){
+				listaEnlazada lista;
+				int uam = lista.obtenerUAM();
+				actual->estado = true;
+				/*if (actual->tamañoMemoria%uam != 0) {
+					actual->tamañoProceso++;
+				}*/
+				actual->tamañoMemoria = nodo->tamañoMemoria;
+				actual->desperdicio= (nodo->tamañoProceso * uam) - nodo->tamañoMemoria ;
+				ban = true;
 			}
 			
 			actual = actual->siguiente;

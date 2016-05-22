@@ -128,10 +128,12 @@ void listaEnlazada::llenarProceso() {
 		{
 			lista.mejorAjuste(procesos);
 		}
-	
-	
-	
+		
 	
 
+}
+
+int listaEnlazada::obtenerUAM() {
+	return uam;
 }
 

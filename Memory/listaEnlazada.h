@@ -32,6 +32,7 @@ public:
 	void siguienteAjuste(nodePtr node);
 	void peorAjuste(nodePtr node);
 	void mejorAjuste(nodePtr node);
+	int obtenerUAM();
 	
 };
 
