@@ -305,11 +305,16 @@ void listaEnlazada::mostrarLista() {
 	cout << "H/P \t |Inicio Proceso	\t|Tamaño de Proceso\t|Tamaño UAM\t|Desperdicio\t|ID|" << endl;
 		while (actual != NULL )
 		{
+
 			cout << actual->estado << "\t |" << actual->inicioProceso << "\t\t\t\t |" << actual->tamañoMemoria << "\t\t\t |" << actual->tamañoProceso << "\t\t|"<<actual->desperdicio <<"\t\t|" << actual->id << "|" << endl;
 			actual = actual->siguiente;		
 		}
-
-	cout << 0 << "\t |" << auxMemoria->inicioProceso << "\t\t\t\t |" <<0 << "\t\t\t |" << auxMemoria->tamañoProceso << "\t\t|" << 0 << "|" << endl;
+		if (auxMemoria->tamañoProceso!=0)
+		{
+cout << 0 << "\t |" << auxMemoria->inicioProceso << "\t\t\t\t |" <<0 << "\t\t\t |" << auxMemoria->tamañoProceso << "\t\t|" << 0 << "|" << endl;
+		}
+		
+	
 }
 
 bool listaEnlazada::vacia() {
@@ -902,17 +907,18 @@ void listaEnlazada::peorAjuste(nodePtr node) {
 		{
 			if (var <= actual->tamañoProceso && actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso)
 			{
-				var = actual->tamañoMemoria;
+				var = actual->tamañoProceso;
 			}
 			else if (var < actual->tamañoProceso&& actual->estado == false && actual->tamañoProceso >= nodo->tamañoProceso) {
 
-				var = actual->tamañoMemoria;
+				var = actual->tamañoProceso;
 			}
 			actual = actual->siguiente;
 		}
 
 		if (var < auxMemoria->tamañoProceso) {
 			añadirProceso(nodo);
+			var = 0;
 		}
 		else {
 
